@@ -8,8 +8,9 @@ import { addUser } from "../store/reducers/userSlice";
 import { BASE_URL } from "../utils/constant";
 
 const Login = () => {
-  const [email, setEmail] = useState("akshay@gmail.com");
-  const [password, setPassword] = useState("Test@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error ,setError] = useState()
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,8 +25,8 @@ const Login = () => {
       );
       dispatch(addUser(data));
       navigate("/");
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      setError(err?.response?.data || "Something went wrong")
     }
   };
 
@@ -54,7 +55,7 @@ const Login = () => {
             <input
               type="email"
               value={email}
-              onChange={() => setEmail(email.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email address"
               className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0b0f1a] text-white border border-white/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
             />
@@ -66,10 +67,11 @@ const Login = () => {
             <input
               type="password"
               value={password}
-              onChange={() => setPassword(password.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0b0f1a] text-white border border-white/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
             />
+            <p className="text-red-500 capitalize px-2">{error}</p>
           </div>
 
           {/* Login Button */}
