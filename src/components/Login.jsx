@@ -2,35 +2,42 @@ import { Mail, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addUser } from "../store/reducers/userSlice";
+import { BASE_URL } from "../utils/constant";
 
 const Login = () => {
   const [email, setEmail] = useState("akshay@gmail.com");
   const [password, setPassword] = useState("Test@123");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const loginHandler = async () => {
     try {
-      await axios.post(
-        "http://localhost:7777/login",
+      const { data } = await axios.post(BASE_URL + "/login",
         {
           email,
           password,
         },
         { withCredentials: true }
       );
+      dispatch(addUser(data));
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-[#0b0f1a] via-[#0e1424] to-[#05070f] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-zinc-800 px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        <div className="bg-[#0f1423]/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-8">
+        <div className="bg-zinc-900 backdrop-blur-xl border rounded-2xl shadow-2xl p-8">
           {/* Title */}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-white tracking-wide">

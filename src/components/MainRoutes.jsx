@@ -3,14 +3,18 @@ import { Route, Routes } from "react-router-dom";
 import Feed from "../components/Feed";
 import Login from "../components/Login";
 import Layout from "../components/Layout"
+import Profile from "./Profile";
+import Body from "./Body";
 
 const MainRoutes = () => {
   return (
     <Routes>
       <Route element={<Layout/>}>
-        <Route path="/" element={<Feed />} />
+       <Route path= "/" element = {<Body />} />
+        <Route path="/login" element={<Login />} />
+      <Route path= "/feed" element = {<Feed />} />
+      <Route path="/profile" element= {<Profile />} />
       </Route>
-      <Route path= "/login" element = {<Login />} />
     </Routes>
   );
 };
