@@ -5,19 +5,20 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addUser } from '../store/reducers/userSlice'
+import Feed from './Feed'
 
 const Body = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const user = useSelector(store => store.user.userInfo)
+    const user = useSelector(store =>store.user)
     console.log(user)
     
     const fetchUser = async() => {
+        if(user) return; //if user alredy present then don't make an API call
         try {
             const { data } = await axios.get(BASE_URL + "/profile/view",{
-                withCredentials:true
+                withCredentials: true
             })
-            console.log(data);
             
             dispatch(addUser(data.user))
         } catch (err) {
@@ -29,14 +30,14 @@ const Body = () => {
     }
 
     useEffect(()=> {
-        if(!user){
+        
             fetchUser()
-        }
-    },[user,dispatch,navigate])
+        
+    },[])
 
   return (
     <div>
-      body
+      <Feed />
     </div>
   )
 }

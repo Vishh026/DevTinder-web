@@ -5,7 +5,9 @@ import axios from "axios"
 import {BASE_URL} from "../utils/constant"
 
 const Navbar = () => {
-  const user = useSelector(store => store.user.userInfo);
+  const user = useSelector(store => store.user);
+  console.log("nav",user);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -14,6 +16,7 @@ const Navbar = () => {
       const {data}= await axios.post(BASE_URL + '/logout',{},{
         withCredentials:true
       })
+      console.log("data",data)
       dispatch(removeUser(data))
       navigate('/login')
     } catch (error) {
@@ -43,12 +46,12 @@ const Navbar = () => {
                 <div className="hidden sm:flex flex-col text-right">
                   <span className="text-xs text-gray-400">Welcome</span>
                   <span className="text-sm font-medium text-gray-200">
-                    {user.firstName}
+                    {user?.firstName}
                   </span>
                 </div>
 
                 <img
-                  src={user.profile || "https://i.pravatar.cc/40"}
+                  src={user?.profile || "https://i.pravatar.cc/40"}
                   alt="user"
                   className="h-10 w-10 rounded-full border border-white/10 object-cover
                              group-hover:ring-2 group-hover:ring-purple-500/40 transition"

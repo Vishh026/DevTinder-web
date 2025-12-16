@@ -12,7 +12,6 @@ const MainRoutes = () => {
       <Route element={<Layout/>}>
        <Route path= "/" element = {<Body />} />
         <Route path="/login" element={<Login />} />
-      <Route path= "/feed" element = {<Feed />} />
       <Route path="/profile" element= {<Profile />} />
       </Route>
     </Routes>

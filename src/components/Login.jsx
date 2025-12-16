@@ -8,15 +8,16 @@ import { addUser } from "../store/reducers/userSlice";
 import { BASE_URL } from "../utils/constant";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error ,setError] = useState()
+  const [email, setEmail] = useState("madhav@gmail.com");
+  const [password, setPassword] = useState("Test@123");
+  const [error, setError] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const loginHandler = async () => {
     try {
-      const { data } = await axios.post(BASE_URL + "/login",
+      const { data } = await axios.post(
+        BASE_URL + "/login",
         {
           email,
           password,
@@ -26,7 +27,7 @@ const Login = () => {
       dispatch(addUser(data));
       navigate("/");
     } catch (err) {
-      setError(err?.response?.data || "Something went wrong")
+      setError(err?.response?.data || "Something went wrong");
     }
   };
 
