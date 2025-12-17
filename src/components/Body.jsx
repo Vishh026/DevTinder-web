@@ -10,8 +10,7 @@ import Feed from './Feed'
 const Body = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const user = useSelector(store =>store.user)
-    console.log(user)
+    const user = useSelector(store =>store.user) 
     
     const fetchUser = async() => {
         if(user) return; //if user alredy present then don't make an API call
@@ -23,20 +22,18 @@ const Body = () => {
             dispatch(addUser(data.user))
         } catch (err) {
             if(err.status === 401){
-                navigate('/login')
+              navigate('/login')
             }
             console.error(err)
         }
     }
 
     useEffect(()=> {
-        
             fetchUser()
-        
     },[])
 
   return (
-    <div>
+    <div className='w-full h-full bg-zinc-800'>
       <Feed />
     </div>
   )

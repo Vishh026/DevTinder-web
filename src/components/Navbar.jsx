@@ -3,11 +3,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { removeUser } from "../store/reducers/userSlice";
 import axios from "axios"
 import {BASE_URL} from "../utils/constant"
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const user = useSelector(store => store.user);
-  console.log("nav",user);
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,13 +15,15 @@ const Navbar = () => {
       const {data}= await axios.post(BASE_URL + '/logout',{},{
         withCredentials:true
       })
-      console.log("data",data)
       dispatch(removeUser(data))
       navigate('/login')
+       toast.success("user logout successfully!");
     } catch (error) {
-      console.error(error)
+      console.error("ERROR:",error)
     }
   };
+
+  if (!user) return null;
 
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-zinc-900 backdrop-blur-md">
@@ -51,7 +52,7 @@ const Navbar = () => {
                 </div>
 
                 <img
-                  src={user?.profile || "https://i.pravatar.cc/40"}
+                  src={user?.profile}
                   alt="user"
                   className="h-10 w-10 rounded-full border border-white/10 object-cover
                              group-hover:ring-2 group-hover:ring-purple-500/40 transition"
