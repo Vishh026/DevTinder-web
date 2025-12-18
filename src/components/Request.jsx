@@ -5,6 +5,7 @@ import { addRequest, removeRequest } from "../store/reducers/requestSlice";
 import { useEffect, useState } from "react";
 import UserNotificationCart from "./UserNotificationCart";
 import RequestShimmer from "./RequestShimmer";
+import toast from "react-hot-toast"
 
 const Request = () => {
   const dispatch = useDispatch();
@@ -16,8 +17,8 @@ const Request = () => {
       const {data} = await axios.post(`${BASE_URL}/request/review/${status}/${reqId}`,{},{
         withCredentials:true,
       })
-      console.log("review request",data);
       dispatch(removeRequest(reqId))
+      toast.success("Request accepted successfully!")
     } catch (error) {
       console.error(error);
       
@@ -29,7 +30,6 @@ const Request = () => {
         const { data } = await axios.get(`${BASE_URL}/user/request/received`, {
           withCredentials: true,
         });
-        console.log("request",data.data);
         
         dispatch(addRequest(data.data));
       } catch (error) {

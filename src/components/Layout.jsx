@@ -1,15 +1,16 @@
-import Navbar from "../components/Navbar"
-import { Outlet } from 'react-router-dom'
+import Navbar from "../components/Navbar";
+import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <div className="bg-zinc-800 w-full h-screen">
+    <div className="min-h-screen w-full bg-zinc-800 flex flex-col">
       <Navbar />
-      <main>
+
+      <main className="flex-1">
         <Outlet />
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

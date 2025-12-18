@@ -9,96 +9,103 @@ import { BASE_URL } from "../utils/constant";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const [email, setEmail] = useState("madhav@gmail.com");
+  const [email, setEmail] = useState("radhe@gmail.com");
   const [password, setPassword] = useState("Test@123");
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const loginHandler = async () => {
+    setError("");
     try {
       const { data } = await axios.post(
         BASE_URL + "/login",
-        {
-          email,
-          password,
-        },
+        { email, password },
         { withCredentials: true }
       );
-      dispatch(addUser(data.user));
-      console.log("user",data.user);
-      
 
+      dispatch(addUser(data.user));
+      toast.success("Welcome back 👋");
       navigate("/");
-       toast.success("Login successfully!");
     } catch (err) {
-      setError(err?.response?.data || "Something went wrong");
+      setError(err?.response?.data || "Invalid credentials");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-800 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-900 via-zinc-900 to-black px-4">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         className="w-full max-w-md"
       >
-        <div className="bg-zinc-900 backdrop-blur-xl border rounded-2xl shadow-2xl p-8">
-          {/* Title */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white tracking-wide">
+        <div className="bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-8">
+
+          {/* Logo */}
+          <div className="flex flex-col items-center mb-8">
+            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-xl font-bold shadow-lg">
+              ♥
+            </div>
+            <h1 className="text-2xl font-semibold text-white mt-4">
               DevTinder
             </h1>
-            <p className="text-sm text-gray-400 mt-2">
-              Match. Collaborate. Build together.
+            <p className="text-sm text-white/60 mt-1">
+              Match. Collaborate. Build.
             </p>
           </div>
 
           {/* Email */}
           <div className="relative mb-4">
-            <Mail className="absolute left-3 top-3 text-gray-400" size={18} />
+            <Mail className="absolute left-3 top-3 text-white/40" size={18} />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email address"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0b0f1a] text-white border border-white/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-zinc-800 text-white border border-white/10
+                         focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500/40"
             />
           </div>
 
           {/* Password */}
-          <div className="relative mb-6">
-            <Lock className="absolute left-3 top-3 text-gray-400" size={18} />
+          <div className="relative mb-3">
+            <Lock className="absolute left-3 top-3 text-white/40" size={18} />
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0b0f1a] text-white border border-white/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-zinc-800 text-white border border-white/10
+                         focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500/40"
             />
-            <p className="text-red-500 capitalize px-2">{error}</p>
           </div>
+
+          {/* Error */}
+          {error && (
+            <motion.p
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-sm text-rose-400 mb-4 px-1"
+            >
+              {error}
+            </motion.p>
+          )}
 
           {/* Login Button */}
           <button
             onClick={loginHandler}
-            className="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 transition-all duration-200 text-white font-medium"
+            className="w-full py-3 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500
+                       text-white font-semibold shadow-lg hover:scale-[1.02] active:scale-95 transition"
           >
             Login
           </button>
 
-          {/* Divider */}
-          <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px bg-white/10" />
-            <span className="text-xs text-gray-400">OR</span>
-            <div className="flex-1 h-px bg-white/10" />
-          </div>
-
           {/* Footer */}
-          <p className="text-center text-sm text-gray-500 mt-6">
+          <p className="text-center text-sm text-white/50 mt-6">
             New here?{" "}
-            <span className="text-purple-400 cursor-pointer hover:underline">
+            <span className="text-pink-400 cursor-pointer hover:underline">
               Create an account
             </span>
           </p>

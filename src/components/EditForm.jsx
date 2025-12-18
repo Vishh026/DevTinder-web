@@ -14,12 +14,10 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/reducers/userSlice";
 import { BASE_URL } from "../utils/constant";
-import UserCart from "./UserCart";
 import UserPublicProfile from "./userPublicProfile";
 import toast from "react-hot-toast";
 
 const EditForm = ({user}) => {
-    console.log("useredit",user)
     
   const [firstName, setfirstName] = useState(user.firstName);
   const [lastName, setlastName] = useState(user.lastName);
