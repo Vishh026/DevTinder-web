@@ -74,10 +74,16 @@ const Navbar = () => {
                 </NavLink>
 
                 <NavLink
-                  to="/settings"
+                  to="/connections"
                   className="block px-4 py-2 text-sm text-gray-200 hover:bg-zinc-700"
                 >
-                  Settings
+                  Connections
+                </NavLink>
+                <NavLink
+                  to="/requests"
+                  className="block px-4 py-2 text-sm text-gray-200 hover:bg-zinc-700"
+                >
+                  Incoming Requests
                 </NavLink>
 
                 <button

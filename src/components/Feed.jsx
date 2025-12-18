@@ -31,7 +31,7 @@ const Feed = () => {
   return (
     <div>
      {feed?.length > 0 && feed.map(users => (
-      <UserCart user = {users} id= {users._id}/>
+      <UserCart user = {users} key= {users._id}/>
      ))}
     </div>
   )

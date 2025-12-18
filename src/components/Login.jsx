@@ -25,7 +25,9 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      dispatch(addUser(data));
+      dispatch(addUser(data.user));
+      console.log("user",data.user);
+      
 
       navigate("/");
        toast.success("Login successfully!");

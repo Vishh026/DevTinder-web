@@ -61,7 +61,7 @@ const EditForm = ({user}) => {
   const defaultImage = "https://cdn-icons-png.flaticon.com/512/149/149071.png"
 
   const inputBase =
-    "w-full pl-11 pr-4 py-3 rounded-xl bg-[#0b0f1a] text-white border border-white/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition";
+    "w-full pl-11 pr-4 py-3 rounded-xl bg-[#0b0f1a] capitalized text-white border border-white/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition";
 
   const iconBase =
     "absolute left-4 top-1/2 -translate-y-1/2 text-gray-400";
