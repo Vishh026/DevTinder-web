@@ -1,19 +1,30 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequest } from "../store/reducers/requestSlice";
+import { addRequest, removeRequest } from "../store/reducers/requestSlice";
 import { useEffect, useState } from "react";
 import UserNotificationCart from "./UserNotificationCart";
 import RequestShimmer from "./RequestShimmer";
 
 const Request = () => {
-  const requests = useSelector((store) => store.requests);
-  
   const dispatch = useDispatch();
+  const requests = useSelector((store) => store.requests);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchReceivedRequests = async () => {
+  const reviewRequestHandler = async(status,reqId) => {
+    try {
+      const {data} = await axios.post(`${BASE_URL}/request/review/${status}/${reqId}`,{},{
+        withCredentials:true,
+      })
+      console.log("review request",data);
+      dispatch(removeRequest(reqId))
+    } catch (error) {
+      console.error(error);
+      
+    }
+  }
+
+   const fetchReceivedRequests = async () => {
       try {
         const { data } = await axios.get(`${BASE_URL}/user/request/received`, {
           withCredentials: true,
@@ -28,8 +39,9 @@ const Request = () => {
       }
     };
 
+  useEffect(() => {
     fetchReceivedRequests();
-  }, [dispatch]);
+  }, []);
 
   if (loading) {
     return <div className="text-center text-white"><RequestShimmer /></div>;
@@ -50,10 +62,10 @@ const Request = () => {
             user={request.fromUserId}
             actions={
               <>
-                <button className="bg-[#dfcfec] px-3 py-1 rounded">
-                  Accept
+                <button className="bg-[#dfcfec] px-3 py-1 rounded" onClick={()=> reviewRequestHandler("accepted",request._id)}>
+                  Accepted
                 </button>
-                <button className="bg-red-400 px-3 py-1 rounded">
+                <button className="bg-red-400 px-3 py-1 rounded" onClick= {() => reviewRequestHandler("rejected",request._id)}>
                   Reject
                 </button>
               </>

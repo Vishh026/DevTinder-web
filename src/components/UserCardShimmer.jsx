@@ -1,6 +1,6 @@
 const UserCardShimmer = () => {
   return (
-    <div className="w-1/2 mx-auto bg-zinc-700/50 shadow-lg flex p-2 rounded-lg animate-pulse">
+    <div className="w-1/2 mx-auto bg-zinc-600/50 shadow-lg flex p-2 rounded-lg animate-pulse">
       
       {/* Image */}
       <div className="w-1/4 rounded-lg bg-zinc-600 h-24" />
